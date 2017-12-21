@@ -1,0 +1,45 @@
+//Sort the odd:
+https://www.codewars.com/kata/578aa45ee9fd15ff4600090d
+
+
+//Problem
+You have an array of numbers.
+Your task is to sort ascending odd numbers but even numbers must be on their places.
+
+Zero isn't an odd number and you don't need to move it. If you have an empty array, you need to return it.
+
+Example
+
+sortArray([5, 3, 2, 8, 1, 4]) == [1, 3, 2, 8, 5, 4]
+
+
+//My Solution
+function sortArray(array) {
+  var placement = [];
+  var odds = [];
+  for (i = 0; i < array.length; i++) {
+    if (array[i] % 2 === 0) {
+      placement.push(array[i])
+    } else {
+      placement.push('odd')
+      odds.push(array[i])
+    }
+  }
+  odds.sort(function(a, b){return a-b});
+  var k = 0;
+  for (j = 0; j < placement.length; j++) {
+    if (placement[j] == 'odd') {
+      placement.splice(j,1,odds[k])
+      k++
+    }
+  }
+  return placement
+}
+
+
+//Working
+Initially I split off two empty arrays. One to hold the position of even numbers and another to hold all the odds in their current order.
+
+Following this, I added a loop to spit the source array into the two relevant arrays I had created.
+
+I then sorted the odds from low to high and, using another loop, pushed the sorted the odd numbers back into the placement array, ensuring that the currently placed even numbers were not moved by using splice.
